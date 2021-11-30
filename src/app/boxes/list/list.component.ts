@@ -15,6 +15,6 @@ export class ListComponent implements OnInit {
   constructor(private boxesGQL: BoxesGQL) {}
 
   ngOnInit() {
-    this.boxes$ = this.boxesGQL.watch().valueChanges.pipe(map(result => result.data.boxes.edges.map(edge => edge.node)));
+    this.boxes$ = this.boxesGQL.fetch().pipe(map(result => result.data.boxes.edges.map(edge => edge.node)));
   }
 }
