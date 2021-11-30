@@ -1,0 +1,35 @@
+:host {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+
+  .logo {
+    width: 40px;
+    margin: 0 16px;
+  }
+
+  a {
+    color: #fff;
+    padding: 8px 24px;
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 16px;
+
+    .balance {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      background: #145ca4;
+      border-radius: 4px;
+    }
+  }
+}

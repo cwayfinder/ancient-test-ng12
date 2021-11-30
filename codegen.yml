@@ -1,0 +1,6 @@
+generates:
+  src/app/_graphql/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-apollo-angular

@@ -1,0 +1,16 @@
+<div class="nav">
+  <a mat-button routerLink="..">< Back to the list</a>
+</div>
+
+<div class="box" *ngIf="box$ | async as box">
+  <img [src]="box.iconUrl" alt="" />
+  <p>Name: {{ box.name }}</p>
+  <p>Cost: {{ box.cost }}</p>
+
+  <button mat-stroked-button (click)="open()">
+    <mat-icon *ngIf="opening">
+      <mat-spinner diameter="20"></mat-spinner>
+    </mat-icon>
+    {{ opening ? 'Opening' : 'Open 1 time' }}
+  </button>
+</div>

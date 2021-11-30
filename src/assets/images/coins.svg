@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB" id="filter_1">
+      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+      <feOffset dx="0" dy="1" />
+      <feGaussianBlur stdDeviation="0" />
+      <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0.8117647 0 0 0 0 0.5882353 0 0 0 0 0.09803922 0 0 0 1 0" />
+      <feBlend mode="normal" in2="shape" result="effect0_innerShadow" />
+    </filter>
+  </defs>
+  <g id="Gold">
+    <g id="Icons-/-20px">
+      <g id="Group">
+        <path d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" id="Oval" fill="#CF9619" stroke="none" />
+        <path d="M8 15.2C12.4183 15.2 16 11.7974 16 7.6C16 3.40264 12.4183 0 8 0C3.58172 0 0 3.40264 0 7.6C0 11.7974 3.58172 15.2 8 15.2Z" id="Oval" fill="#FFE063" stroke="none" />
+        <g filter="url(#filter_1)">
+          <path d="M6.4 12.8C9.93462 12.8 12.8 9.93462 12.8 6.4C12.8 2.86538 9.93462 0 6.4 0C2.86538 0 0 2.86538 0 6.4C0 9.93462 2.86538 12.8 6.4 12.8Z" transform="translate(1.6 1.2)" id="Oval" fill="#EBBD31" stroke="none" />
+        </g>
+        <path d="M7.2 0.838802C7.2 -0.280467 0 0.0937787 0 0.0937787L3.2085 0.838802L0.855934 7.2L3.2085 3.86247L3.95237 3.59038L6.38421 7.2L4.9349 2.91796C4.9349 2.91796 7.2 1.95807 7.2 0.838802ZM3.92785 2.25383L4.48366 0.960862C4.48366 0.960862 5.72828 0.960862 5.72828 1.28022C5.72828 1.59958 3.92785 2.25383 3.92785 2.25383Z" transform="translate(4 4.4)" id="Combined-Shape" fill="#BD6D01" fill-rule="evenodd" stroke="none" />
+      </g>
+    </g>
+  </g>
+</svg>

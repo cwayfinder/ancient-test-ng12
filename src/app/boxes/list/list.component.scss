@@ -1,0 +1,14 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 24px;
+  padding: 24px;
+  overflow: auto;
+
+  mat-card {
+    max-width: 200px;
+    cursor: pointer;
+  }
+}
