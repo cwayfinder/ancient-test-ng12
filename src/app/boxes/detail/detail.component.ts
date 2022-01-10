@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit, ɵmarkDirty as markDirty } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { OpenBoxGQL } from '../../_graphql/open-box';
-import { Box, BoxGQL } from '../../_graphql/box';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { openBox, OpenBoxMutationResponseData } from '../../_graphql/open-box';
+import { Box } from '../../_graphql/box';
+import { Watch } from '../../_decorators/watch';
+import { box } from 'src/app/_graphql/box';
+import { Mutate } from '../../_decorators/mutate';
+import { OnError } from 'src/app/_decorators/on-error';
+import { OnSuccess } from '../../_decorators/on-success';
+import { Loading } from '../../_decorators/loading';
 
 @Component({
   selector: 'app-detail',
@@ -12,43 +15,30 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailComponent implements OnInit {
-  boxId!: string;
-  box$!: Observable<Box>;
-  opening = false;
+export class DetailComponent {
+  @Watch(box) box!: Box;
+  @Mutate(openBox) openBox = new EventEmitter<void>();
+  @Loading('openBox') opening = false;
 
-  constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private boxGQL: BoxGQL, private openBoxGQL: OpenBoxGQL) {}
-
-  ngOnInit(): void {
-    this.boxId = this.route.snapshot.params.boxId;
-
-    this.box$ = this.boxGQL.fetch({ id: this.boxId }).pipe(map(result => result.data.box));
-  }
+  constructor(private snackBar: MatSnackBar) {}
 
   open(): void {
-    this.opening = true;
+    this.openBox.emit();
+  }
 
-    this.openBoxGQL
-      .mutate({
-        input: { boxId: this.boxId, amount: 1 },
-      })
-      .subscribe(
-        result => {
-          this.opening = false;
-          markDirty(this);
-          if (result.data) {
-            const item = result.data.openBox.boxOpenings[0].itemVariant;
-            this.showNotification(`You found ${item.name} (${item.value})`);
-          } else {
-            this.showNotification('Something went wrong when opening the box');
-          }
-        },
-        error => {
-          this.opening = false;
-          markDirty(this);
-          this.showNotification(error.message);
-        },
-      );
+  @OnSuccess('openBox')
+  showConfirmation(data: OpenBoxMutationResponseData): void {
+    if (data) {
+      const item = data.openBox.boxOpenings[0].itemVariant;
+      this.showNotification(`You found ${item.name} (${item.value})`);
+    } else {
+      this.showNotification('Something went wrong when opening the box');
+    }
+  }
+
+  @OnError('openBox')
+  showError(error: any): void {
+    this.showNotification(error.message);
   }
 
   private showNotification(message: string): void {

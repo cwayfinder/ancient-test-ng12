@@ -2,7 +2,7 @@
   <a mat-button routerLink="..">< Back to the list</a>
 </div>
 
-<div class="box" *ngIf="box$ | async as box">
+<div class="box" *ngIf="box">
   <img [src]="box.iconUrl" alt="" />
   <p>Name: {{ box.name }}</p>
   <p>Cost: {{ box.cost }}</p>

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Box, BoxesGQL } from '../../_graphql/boxes';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Box } from '../../_graphql/boxes';
+import { Watch } from '../../_decorators/watch';
+import { boxes } from 'src/app/_graphql/boxes';
 
 @Component({
   selector: 'app-list',
@@ -9,12 +9,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent implements OnInit {
-  boxes$!: Observable<Box[]>;
-
-  constructor(private boxesGQL: BoxesGQL) {}
-
-  ngOnInit() {
-    this.boxes$ = this.boxesGQL.fetch().pipe(map(result => result.data.boxes.edges.map(edge => edge.node)));
-  }
+export class ListComponent {
+  @Watch(boxes) boxes!: Box[];
 }

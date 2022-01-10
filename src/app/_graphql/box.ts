@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { gql, Query } from 'apollo-angular';
+import { gql } from 'apollo-angular';
+import { QueryArgs } from '../_decorators/base';
+import { routeParamSelector } from '../_state/router/selectors';
 
 export interface Box {
   id: string;
@@ -8,7 +9,7 @@ export interface Box {
   cost: number;
 }
 
-export interface Response {
+export interface BoxQueryResponseData {
   box: Box;
 }
 
@@ -16,17 +17,23 @@ export interface Variables {
   id: string;
 }
 
-@Injectable({ providedIn: 'root' })
-export class BoxGQL extends Query<Response, Variables> {
-  document = gql`
-    query Box($id: ID!) {
-      box(id: $id) {
-        id
-        name
-        iconUrl
-        cost
-        levelRequired
-      }
+export const boxQuery = gql`
+  query Box($id: ID!) {
+    box(id: $id) {
+      id
+      name
+      iconUrl
+      cost
+      levelRequired
     }
-  `;
-}
+  }
+`;
+
+export const box: QueryArgs<BoxQueryResponseData, Variables, Box> = {
+  query: boxQuery,
+  variables: {
+    id: routeParamSelector('boxId'),
+  },
+  projector: (data) => data.box,
+};
+

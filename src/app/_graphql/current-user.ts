@@ -15,19 +15,21 @@ export interface Response {
   };
 }
 
-@Injectable({ providedIn: 'root' })
-export class CurrentUserGQL extends Query<Response> {
-  document = gql`
-    query CurrentUser {
-      currentUser {
+export const currentUserQuery = gql`
+  query CurrentUser {
+    currentUser {
+      id
+      name
+      wallets {
         id
+        amount
         name
-        wallets {
-          id
-          amount
-          name
-        }
       }
     }
-  `;
+  }
+`;
+
+@Injectable({ providedIn: 'root' })
+export class CurrentUserGQL extends Query<Response> {
+  document = currentUserQuery;
 }

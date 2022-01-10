@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
-import { gql, Mutation } from 'apollo-angular';
+import { gql } from 'apollo-angular';
+import { MutationArgs } from '../_decorators/base';
+import { Box, BoxQueryResponseData } from './box';
+import { openBoxInputSelector } from '../_state/selectors';
 
 export interface OpenBoxInput {
   boxId: string;
@@ -10,7 +12,7 @@ export interface Variables {
   input: OpenBoxInput;
 }
 
-export interface Response {
+export interface OpenBoxMutationResponseData {
   openBox: {
     boxOpenings: {
       id: string;
@@ -24,21 +26,26 @@ export interface Response {
   };
 }
 
-@Injectable({ providedIn: 'root' })
-export class OpenBoxGQL extends Mutation<Response, Variables> {
-  document = gql`
-    mutation OpenBox($input: OpenBoxInput!) {
-      openBox(input: $input) {
-        boxOpenings {
+export const openBoxMutation = gql`
+  mutation OpenBox($input: OpenBoxInput!) {
+    openBox(input: $input) {
+      boxOpenings {
+        id
+        itemVariant {
           id
-          itemVariant {
-            id
-            name
-            value
-            iconUrl
-          }
+          name
+          value
+          iconUrl
         }
       }
     }
-  `;
-}
+  }
+`;
+
+export const openBox: MutationArgs<BoxQueryResponseData, any, Box> = {
+  mutation: openBoxMutation,
+  variables: {
+    input: openBoxInputSelector,
+  },
+  // projector: (data) => data.box,
+};

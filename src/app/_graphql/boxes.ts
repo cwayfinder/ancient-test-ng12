@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { gql, Query } from 'apollo-angular';
+import { QueryArgs } from '../_decorators/base';
 
 export interface Box {
   id: string;
@@ -9,7 +10,7 @@ export interface Box {
   levelRequired: number;
 }
 
-export interface Response {
+export interface BoxesQueryResponseData {
   boxes: {
     edges: {
       node: Box;
@@ -17,9 +18,7 @@ export interface Response {
   };
 }
 
-@Injectable({ providedIn: 'root' })
-export class BoxesGQL extends Query<Response> {
-  document = gql`
+export const boxesQuery = gql`
     query Boxes {
       boxes(openable: true) {
         edges {
@@ -34,4 +33,9 @@ export class BoxesGQL extends Query<Response> {
       }
     }
   `;
-}
+
+export const boxes: QueryArgs<BoxesQueryResponseData, any, Box[]> = {
+  query: boxesQuery,
+  variables: {},
+  projector: (data) => data.boxes.edges.map(edge => edge.node),
+};
